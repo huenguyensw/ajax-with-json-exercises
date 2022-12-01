@@ -31,14 +31,14 @@ const URL = 'https://codexplained.se/lorem_json_array.php?numberOfWords=';
 class Columns{
     constructor(numberOfColumns) {
         this.numberOfColumns = numberOfColumns;
-        //create table-header
+        //create header-row
         let row1 = "";
         for (let i = 1; i<= numberOfColumns; i++) {
             row1 += `<th><button id=${i}>${i}</button></th>`;
         }
         tableForm.innerHTML += `<thead><tr>${row1}</tr></thead>`;
         
-        //create table-row
+        //create data-row
         let listOfTd = "";
         for (let i= 1; i<=numberOfColumns; i++){
             listOfTd += `<td></td>`;
