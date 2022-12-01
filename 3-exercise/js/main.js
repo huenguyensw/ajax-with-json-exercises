@@ -26,20 +26,29 @@
  * |-----|-----|-----|-----|-----|
  */
 let tableForm = document.getElementById('table');
+
 const URL = 'https://codexplained.se/lorem_json_array.php?numberOfWords=';
 class Columns{
-    constructor(columns) {
-        this.columns = columns;
+    constructor(numberOfColumns) {
+        this.numberOfColumns = numberOfColumns;
+        //create table-header
         let row1 = "";
-        for (let column of this.columns) {
-            row1 += `<th><button id=${column}>${column}</button></th>`;
+        for (let i = 1; i<= numberOfColumns; i++) {
+            row1 += `<th><button id=${i}>${i}</button></th>`;
         }
-        tableForm.innerHTML += `<tr>${row1}</tr>`;
+        tableForm.innerHTML += `<thead><tr>${row1}</tr></thead>`;
+        
+        //create table-row
+        let listOfTd = "";
+        for (let i= 1; i<=numberOfColumns; i++){
+            listOfTd += `<td></td>`;
+        }
+        tableForm.innerHTML += `<tbody><tr>${listOfTd}</tr></tbody>`;
+        console.log("abc",tableForm.lastElementChild.firstElementChild.childNodes)
     }
-    showData(){
-        tableForm.innerHTML += `<tr></tr>`;
-        for (let column of this.columns){
-            this.fetchData(column);
+    displayData(){
+        for (let i= 1; i<= this.numberOfColumns; i++){
+            this.fetchData(i);
         }
     }
     fetchData(id){
@@ -56,14 +65,15 @@ class Columns{
                     for (let word of listofWords){
                         words += `<li>${word}</li>`;
                     }
-                    tableForm.lastElementChild.firstElementChild.innerHTML += `<td>${words}</td>`;
+                    tableForm.lastElementChild.firstElementChild.childNodes[id-1].innerHTML += `${words}`;
+                    
                 } catch(error){
                     console.log(error);
                 }
             })
     }
 }
-
-const table = new Columns([1,2,3,4,5]);
+const maxColums = 5;
+const table = new Columns(maxColums);
 console.log(table.columns);
-table.showData();
+table.displayData();
