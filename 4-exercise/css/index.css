@@ -1,3 +1,14 @@
 *{
     box-sizing: border-box;
 }
+ul{
+    margin-top: 30px;
+}
+li{
+    list-style-type: none;
+    display: inline;
+    padding: 0px 20px;
+}
+li a{
+    text-decoration: none;
+}

@@ -44,7 +44,8 @@ class Columns{
             listOfTd += `<td></td>`;
         }
         tableForm.innerHTML += `<tbody><tr>${listOfTd}</tr></tbody>`;
-        console.log("abc",tableForm.lastElementChild.firstElementChild.childNodes)
+        
+        this.displayData();
     }
     displayData(){
         for (let i= 1; i<= this.numberOfColumns; i++){
@@ -76,4 +77,3 @@ class Columns{
 const maxColums = 5;
 const table = new Columns(maxColums);
 console.log(table.columns);
-table.displayData();
