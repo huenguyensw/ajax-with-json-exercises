@@ -13,10 +13,12 @@
  *
  */
 
-let blog = document.getElementById('1');
-let about = document.getElementById('2');
-let author = document.getElementById('3');
+// let blog = document.getElementById('1');
+// let about = document.getElementById('2');
+// let author = document.getElementById('3');
 let section = document.getElementById('section');
+let links = document.querySelectorAll('a');
+console.log(links);
 
 
 async function fetchData(id){
@@ -43,15 +45,24 @@ async function fetchData(id){
         console.log(error);
     }
 }
-blog.addEventListener('click',function(e){
-    e.preventDefault();
-    fetchData(1);
-});
-about.addEventListener('click',function(e){
-    e.preventDefault();
-    fetchData(2);
-});
-author.addEventListener('click',function(e){
-    e.preventDefault();
-    fetchData(3);
-});
+// blog.addEventListener('click',function(e){
+//     e.preventDefault();
+//     fetchData(1);
+// });
+// about.addEventListener('click',function(e){
+//     e.preventDefault();
+//     fetchData(2);
+// });
+// author.addEventListener('click',function(e){
+//     e.preventDefault();
+//     fetchData(3);
+// });
+
+for(let link of links){
+    link.addEventListener('click',function(e){
+        console.log(e.target.id)
+        e.preventDefault();
+        let a_link = e.target.id;
+        fetchData(a_link);
+    })
+}
