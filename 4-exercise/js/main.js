@@ -19,7 +19,14 @@
 let section = document.getElementById('section');
 let links = document.querySelectorAll('a');
 console.log(links);
-
+for(let link of links){
+    link.addEventListener('click',function(e){
+        console.log(e.target.id)
+        e.preventDefault();
+        let a_link = e.target.id;
+        fetchData(a_link);
+    })
+}
 
 async function fetchData(id){
     try{
@@ -28,17 +35,24 @@ async function fetchData(id){
             throw new Error('HTTP Error: ' + response.status);
         }
         const data = await response.json();
-        let blogContent = "";
-        
-        if(id == 1){
+        if(id == 'blog_posts'){
+            let blogContent = "";
             for(let text of data.blog_posts){
-                blogContent += `<article><h2>${text.title}</h2><h3><i>${text.date}</i></h3><p>${text.text}</p></article>`;
+                let tagContent = "";
+                for(let tag of text.tags){
+                    tagContent += `${tag}, `
+                }
+                blogContent += `<article>
+                <h2>${text.title}</h2>
+                <h3><i>${text.date}</i></h3>
+                <p>${text.text}</p>
+                <p style="padding-left: 15px">Tags: ${tagContent}</p>
+                </article>`;  
             }
             section.innerHTML = `${blogContent}`;
-        } else if (id == 2){
-            section.innerHTML = `<h2>About</h2><p>${data.about}</p>`;
-        } else if (id == 3){
-            section.innerHTML = `<h2>Author</h2><p>${data.author}</p>`;
+        } else {
+            const title = id.charAt(0).toUpperCase()+ id.slice(1);
+            section.innerHTML = `<h2>${title}</h2><p>${data[id]}</p>`;
         }
 
     }catch(error){
@@ -58,11 +72,3 @@ async function fetchData(id){
 //     fetchData(3);
 // });
 
-for(let link of links){
-    link.addEventListener('click',function(e){
-        console.log(e.target.id)
-        e.preventDefault();
-        let a_link = e.target.id;
-        fetchData(a_link);
-    })
-}
